@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiết Kế Website Bằng AI | Nhanh - Đẹp - Chuyên Nghiệp</title>
+    <meta name="description"
+        content="Dịch vụ thiết kế website bằng trí tuệ nhân tạo AI. Tốc độ nhanh, chi phí hợp lý, chuẩn SEO và giao diện hiện đại.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-text: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-gradient {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-text);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            background: rgba(2, 6, 23, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: float 5s ease-in-out infinite reverse;
+        }
+
+        .card-1 {
+            top: 10%;
+            left: -30px;
+        }
+
+        .card-2 {
+            bottom: 10%;
+            right: -30px;
+            animation-delay: 1s;
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .icon-blue {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        .icon-pink {
+            background: rgba(236, 72, 153, 0.2);
+            color: var(--secondary);
+        }
+
+        /* Features */
+        .features {
+            background: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Process */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .step-card:hover .step-number {
+            background: var(--primary);
+            color: white;
+        }
+
+        .step-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--dark);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, rgba(15, 23, 42, 0) 100%);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-text);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: white;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
+        }
+
+        .pricing-features li i {
+            color: var(--primary);
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-col p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--darker);
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .card-1 {
+                left: 0;
+            }
+
+            .card-2 {
+                right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fa-solid fa-robot text-gradient"></i>
+                    Halo Media
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#features">Ưu điểm</a></li>
+                    <li><a href="#process">Quy trình</a></li>
+                    <li><a href="#pricing">Bảng giá</a></li>
+                    <li><a href="#faq">Hỏi đáp</a></li>
+                </ul>
+                <div class="mobile-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Thiết Kế Website Bằng <span class="text-gradient">Trí Tuệ Nhân Tạo</span></h1>
+                    <p>Sở hữu website chuyên nghiệp, chuẩn SEO và tối ưu chuyển đổi chỉ trong thời gian ngắn với công
+                        nghệ AI tiên tiến nhất.</p>
+                    <div class="hero-btns">
+                        <a href="#pricing" class="btn btn-primary">Xem Bảng Giá</a>
+                        <a href="#process" class="btn btn-outline">Tìm Hiểu Thêm</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="AI Website Design">
+
+                    <div class="floating-card card-1">
+                        <div class="icon-box icon-blue">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h4>Tốc độ cao</h4>
+                            <small>Load < 1s</small>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-2">
+                        <div class="icon-box icon-pink">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div>
+                            <h4>AI Design</h4>
+                            <small>Tự động hóa</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ưu Điểm Vượt Trội Của AI</h2>
+                <p>Công nghệ AI mang lại sự đột phá trong thiết kế website, giúp bạn tiết kiệm thời gian và chi phí.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3>Tốc Độ Siêu Nhanh</h3>
+                    <p>Website được tối ưu hóa code tự động, giúp tốc độ tải trang cực nhanh, giữ chân khách hàng tốt
+                        hơn.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3>Tự Động Responsive</h3>
+                    <p>Giao diện tự động thích ứng hoàn hảo trên mọi thiết bị từ Mobile, Tablet đến Desktop.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                    <h3>Chuẩn SEO Google</h3>
+                    <p>Cấu trúc code thân thiện với bộ máy tìm kiếm, giúp website dễ dàng lên top Google.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>Bảo Mật Cao</h3>
+                    <p>Hệ thống bảo mật đa lớp, chống lại các cuộc tấn công mạng và bảo vệ dữ liệu khách hàng.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3>Thiết Kế Độc Đáo</h3>
+                    <p>AI tạo ra các mẫu thiết kế không trùng lặp, mang đậm bản sắc thương hiệu của bạn.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3>Tối Ưu Chuyển Đổi</h3>
+                    <p>Bố cục được AI phân tích dựa trên hành vi người dùng để tối đa hóa tỷ lệ chuyển đổi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>4 Bước Đơn Giản</h2>
+                <p>Quy trình làm việc tinh gọn, minh bạch và hiệu quả.</p>
+            </div>
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Tư Vấn & Phân Tích</h3>
+                    <p>Tiếp nhận yêu cầu, phân tích đối thủ và đề xuất giải pháp phù hợp nhất.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>AI Thiết Kế Demo</h3>
+                    <p>Sử dụng AI để tạo ra bản demo giao diện chỉ trong thời gian ngắn.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Chỉnh Sửa & Hoàn Thiện</h3>
+                    <p>Tinh chỉnh chi tiết theo ý kiến khách hàng và tối ưu hóa kỹ thuật.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Bàn Giao & Hỗ Trợ</h3>
+                    <p>Bàn giao source code, hướng dẫn sử dụng và hỗ trợ kỹ thuật lâu dài.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gói Dịch Vụ Linh Hoạt</h2>
+                <p>Lựa chọn gói dịch vụ phù hợp với nhu cầu và ngân sách của bạn.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Cơ Bản</h3>
+                    <div class="price">5tr <span>/ web</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i> Giao diện mẫu có sẵn</li>
+                        <li><i class="fa-solid fa-check"></i> Tối ưu Mobile</li>
+                        <li><i class="fa-solid fa-check"></i> Hosting 1 năm</li>
+                        <li><i class="fa-solid fa-check"></i> Bảo hành 12 tháng</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Chọn Gói Này</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Phổ Biến Nhất</div>
+                    <h3>Chuyên Nghiệp</h3>
+                    <div class="price">10tr <span>/ web</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i> Thiết kế theo yêu cầu</li>
+                        <li><i class="fa-solid fa-check"></i> Tối ưu SEO nâng cao</li>
+                        <li><i class="fa-solid fa-check"></i> Tích hợp Chatbot AI</li>
+                        <li><i class="fa-solid fa-check"></i> Tốc độ tải trang < 1s</li>
+                        <li><i class="fa-solid fa-check"></i> Bảo hành trọn đời</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Chọn Gói Này</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Cao Cấp</h3>
+                    <div class="price">Liên hệ</div>
+                    <ul class="pricing-features">
+                        <li><i class="fa-solid fa-check"></i> Hệ thống Web App phức tạp</li>
+                        <li><i class="fa-solid fa-check"></i> Tích hợp thanh toán, CRM</li>
+                        <li><i class="fa-solid fa-check"></i> AI Custom theo nghiệp vụ</li>
+                        <li><i class="fa-solid fa-check"></i> Hỗ trợ 24/7 VIP</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline">Liên Hệ Ngay</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Câu Hỏi Thường Gặp</h2>
+                <p>Giải đáp những thắc mắc phổ biến về dịch vụ thiết kế web AI.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Thiết kế web bằng AI có tốt cho SEO không?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Hoàn toàn tốt. AI giúp tối ưu hóa cấu trúc code, thẻ meta và nội dung chuẩn SEO ngay từ đầu,
+                        giúp website dễ dàng được Google index và xếp hạng cao.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Thời gian hoàn thiện website là bao lâu?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Nhờ công nghệ AI, thời gian thiết kế được rút ngắn đáng kể. Thông thường chỉ mất từ 3-5 ngày cho
+                        một website hoàn chỉnh, thay vì 2-3 tuần như cách truyền thống.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Tôi có thể tự chỉnh sửa nội dung sau khi bàn giao không?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Có, chúng tôi bàn giao hệ thống quản trị (CMS) thân thiện, dễ sử dụng. Bạn có thể dễ dàng thay
+                        đổi hình ảnh, văn bản, bài viết mà không cần biết code.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Chi phí duy trì hàng năm là bao nhiêu?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Chi phí duy trì bao gồm tên miền và hosting. Tùy vào gói dịch vụ bạn chọn, mức phí này sẽ dao
+                        động từ 1-3 triệu đồng/năm.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 20px; display: inline-block;">
+                        <i class="fa-solid fa-robot text-gradient"></i>
+                        Halo Media
+                    </a>
+                    <p>Tiên phong trong lĩnh vực thiết kế website ứng dụng trí tuệ nhân tạo. Mang đến giải pháp số hóa
+                        toàn diện cho doanh nghiệp.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên Kết Nhanh</h4>
+                    <ul style="line-height: 2;">
+                        <li><a href="#home">Trang chủ</a></li>
+                        <li><a href="#features">Về chúng tôi</a></li>
+                        <li><a href="#pricing">Dịch vụ</a></li>
+                        <li><a href="#faq">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Thông Tin Liên Hệ</h4>
+                    <ul style="line-height: 2;">
+                        <li><i class="fa-solid fa-location-dot" style="width: 20px; color: var(--primary);"></i> 78/16
+                            Đường Cao Lỗ, phường 4, Quận 8, TP.HCM</li>
+                        <li><i class="fa-solid fa-phone" style="width: 20px; color: var(--primary);"></i> 0934.078.340
+                        </li>
+                        <li><i class="fa-solid fa-envelope" style="width: 20px; color: var(--primary);"></i>
+                            contact@halomedia.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Halo Media. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').classList.remove('fa-xmark');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Header Background on Scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(2, 6, 23, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(2, 6, 23, 0.8)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
